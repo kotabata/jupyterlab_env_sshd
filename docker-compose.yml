@@ -1,0 +1,22 @@
+version: '3'
+services:
+    jupyterlab:
+        container_name: jupyterlab
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8888:8888"
+            - "8889:22"
+        restart: no
+        tty: true
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - capabilities: [gpu]
+        volumes:
+            - ..:/root/workdir
+        working_dir: /root
+        environment:
+            - HOME=/root
